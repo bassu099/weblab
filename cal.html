@@ -1,66 +1,260 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-	body{
-		background-color: gray;
-	}
-	#calculator{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding-top: 300px;
-		padding-bottom: 300px;
-		flex-direction: column;
-		gap: 10px;
-		
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Calculator</title>
 
-	}
-</style>	
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f172a, #312e81, #701a75);
+            padding: 20px;
+        }
+
+        #calculator {
+            width: 100%;
+            max-width: 360px;
+            padding: 30px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: appear 0.7s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #c4b5fd;
+            text-align: center;
+            font-size: 13px;
+            margin-top: -10px;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            outline: none;
+            background: rgba(15, 23, 42, 0.65);
+            color: white;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input::placeholder {
+            color: #a5b4fc;
+        }
+
+        input:focus, select:focus {
+            border-color: #c084fc;
+            box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
+        }
+
+        select option {
+            background: #1e1b4b;
+            color: white;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .calculate {
+            background: linear-gradient(90deg, #a855f7, #6366f1);
+            color: white;
+            box-shadow: 0 5px 18px rgba(139, 92, 246, 0.3);
+        }
+
+        .calculate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(139, 92, 246, 0.5);
+        }
+
+        .clear {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .clear:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        #result {
+            min-height: 90px;
+            padding: 16px 10px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.6);
+            color: #86efac;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        .result-label {
+            display: block;
+            color: #c4b5fd;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        #answer {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .footer {
+            color: #cbd5e1;
+            text-align: center;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+    </style>
 </head>
+
 <body>
-	<div id='calculator'>
-		<h2>Calculator</h2>
-		<input id="fnum" type="number" placeholder="Enter first number">
-		<select id='operator'>
-			<option value="+">Add</option>
-			<option value="-">Subtract</option>
-			<option value="*">Multiply</option>
-			<option value="/">Divide</option>
 
-		</select>
-		<input  id="snum" type="number" placeholder="Enter second number">
-		<button onclick="Calculator()">Calculate</button>
-		<h3 id="result"></h3>
-	</div>
+    <div id="calculator">
+        <h2>✦ Calculator</h2>
+        <p class="subtitle">Smart calculations, simple design</p>
+
+        <input id="fnum" type="number" step="any"
+               placeholder="Enter first number">
+
+        <select id="operator">
+            <option value="+">＋ Addition</option>
+            <option value="-">− Subtraction</option>
+            <option value="*">× Multiplication</option>
+            <option value="/">÷ Division</option>
+        </select>
+
+        <input id="snum" type="number" step="any"
+               placeholder="Enter second number">
+
+        <div class="buttons">
+            <button class="calculate" onclick="Calculator()">
+                Calculate ↗
+            </button>
+            <button class="clear" onclick="clearCalculator()">
+                Clear
+            </button>
+        </div>
+
+        <div id="result" aria-live="polite">
+            <span class="result-label">Your Result</span>
+            <span id="answer">Ready!</span>
+        </div>
+
+        <p class="footer">✧ Designed for smarter calculations ✧</p>
+    </div>
+
+    <script>
+        function Calculator() {
+            const firstValue = document.getElementById("fnum").value;
+            const secondValue = document.getElementById("snum").value;
+            const operator = document.getElementById("operator").value;
+            const answer = document.getElementById("answer");
+
+            if (firstValue.trim() === "" || secondValue.trim() === "") {
+                answer.textContent = "Enter both numbers!";
+                return;
+            }
+
+            const firstNum = Number(firstValue);
+            const secondNum = Number(secondValue);
+            let result;
+
+            switch (operator) {
+                case "+":
+                    result = firstNum + secondNum;
+                    break;
+
+                case "-":
+                    result = firstNum - secondNum;
+                    break;
+
+                case "*":
+                    result = firstNum * secondNum;
+                    break;
+
+                case "/":
+                    if (secondNum === 0) {
+                        answer.textContent = "Cannot divide by zero!";
+                        return;
+                    }
+                    result = firstNum / secondNum;
+                    break;
+            }
+
+            answer.textContent = Number.isFinite(result)
+                ? Number(result.toPrecision(12)).toString()
+                : "Result is too large!";
+        }
+
+        function clearCalculator() {
+            document.getElementById("fnum").value = "";
+            document.getElementById("snum").value = "";
+            document.getElementById("operator").value = "+";
+            document.getElementById("answer").textContent = "Ready!";
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                Calculator();
+            }
+
+            if (event.key === "Escape") {
+                clearCalculator();
+            }
+        });
+    </script>
+
 </body>
-<script>
-		function Calculator(){
-			
-			let firstNum=parseFloat(document.getElementById('fnum').value);
-			let SecondNum=parseFloat(document.getElementById('snum').value);
-			let value=document.getElementById('operator').value;
-			if(isNaN(firstNum) || isNaN(SecondNum)){
-				document.getElementById("result").innerText="Enter both numbers";
-				return ;
-			}
-			var result;
-			if(value=='+'){
-				result=firstNum+SecondNum;
-			}
-			else if(value=='-'){
-				result=firstNum-SecondNum;
-			}
-			else if(value=='*'){
-				result=firstNum*SecondNum;
-			}
-			else if(value=='/'){
-				result=firstNum/SecondNum;
-			}
-			document.getElementById('result').innerText=result;
-		}
-
-
-</script>
 </html>
