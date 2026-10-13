@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	body{
+		background-color: gray;
+	}
+	#calculator{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-top: 300px;
+		padding-bottom: 300px;
+		flex-direction: column;
+		gap: 10px;
+		
+
+	}
+</style>	
+
+</head>
+<body>
+	<div id='calculator'>
+		<h2>Calculator</h2>
+		<input id="fnum" type="number" placeholder="Enter first number">
+		<select id='operator'>
+			<option value="+">Add</option>
+			<option value="-">Subtract</option>
+			<option value="*">Multiply</option>
+			<option value="/">Divide</option>
+
+		</select>
+		<input  id="snum" type="number" placeholder="Enter second number">
+		<button onclick="Calculator()">Calculate</button>
+		<h3 id="result"></h3>
+	</div>
+</body>
+<script>
+		function Calculator(){
+			
+			let firstNum=parseFloat(document.getElementById('fnum').value);
+			let SecondNum=parseFloat(document.getElementById('snum').value);
+			let value=document.getElementById('operator').value;
+			if(isNaN(firstNum) || isNaN(SecondNum)){
+				document.getElementById("result").innerText="Enter both numbers";
+				return ;
+			}
+			var result;
+			if(value=='+'){
+				result=firstNum+SecondNum;
+			}
+			else if(value=='-'){
+				result=firstNum-SecondNum;
+			}
+			else if(value=='*'){
+				result=firstNum*SecondNum;
+			}
+			else if(value=='/'){
+				result=firstNum/SecondNum;
+			}
+			document.getElementById('result').innerText=result;
+		}
+
+
+</script>
+</html>
